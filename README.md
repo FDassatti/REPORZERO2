@@ -1,7 +1,7 @@
 # Rzero-Android-SDK
 
 ### Integration using Gradle
-```
+```groovy
 rootProject.allprojects {
     repositories {
        ...
@@ -26,44 +26,42 @@ dependencies {
 
 ### Initialization
 
-In Application.onCreate() or as early on in the app lifecycle, use the rzero.Builder to create an instance.
-```
-public class RZeroExampleApp extends Application {
+In Application.onCreate() or as early on in the app lifecycle, use the rzero.Builder to create an instance.  The parameters can be found in the rZero Customer Portal
+```kotlin
+class RZeroExampleApp : Application() {
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        new rzero.Builder(getApplicationContext())
+    override fun onCreate() {
+        super.onCreate()
+        rzero.Builder(applicationContext)
                 .isStaging(true)
                 .clientId({YOUR_CLIENT_ID})
-                .clientToken({YOUR_TOKEN})
-                .build();
-
+                .clientToken({YOUR_MOBILE_TOKEN})
+                .build()
     }
 }
 ```
 
-### Set User id
-```
- rzero.getInstance().setUserId((ID))
-```
-
-### Implement EditTextWatcher for textfields - note- any field notated as password will receive '*' obfuscated text.
-```
-rzero.getInstance().addEditTextWatcher(this, R.id.name);
-
-//Alternatively, you could send a list of ids
-List<Integer> viewIds = Arrays.asList(R.id.email, R.id.password);
-rzero.getInstance().addEditTextWatcher(this, viewIds);
-```
-
-### Before e-commerce purchase
-```
+### Before e-commerce purchase (* required)
+```kotlin
 rzero.getInstance().flush()
 ```
 
-### Send custom events
+### Set User id
+```kotlin
+ rzero.getInstance().setUserId({ID})
 ```
+
+### Implement EditTextWatcher for textfields - note- any field notated as password will receive '*' obfuscated text.
+```kotlin
+rzero.getInstance().addEditTextWatcher(this, R.id.name)
+
+//Alternatively, you could send a list of ids
+val viewIds = listOf(R.id.email, R.id.password)
+rzero.getInstance().addEditTextWatcher(this, viewIds)
+```
+
+### Send custom events
+```kotlin
 rzero.getInstance().logCustomEvent(mapOf("event_name" to "login_screen", "key_1" to "value_1"))
 ```
 
