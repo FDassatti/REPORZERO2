@@ -36,6 +36,7 @@ class RZeroExampleApp : Application() {
                 .isStaging(true)
                 .clientId({YOUR_CLIENT_ID})
                 .clientToken({YOUR_MOBILE_TOKEN})
+                .activityLifecycleListenerOn(false) //When manually creating page_load/page_leave events/ for non native android mobile integrations set this to false
                 .build()
     }
 }
@@ -46,9 +47,19 @@ class RZeroExampleApp : Application() {
 rzero.getInstance().flush()
 ```
 
-### Set User id
+### Set User id (* required)
 ```kotlin
- rzero.getInstance().setUserId({ID})
+rzero.getInstance().setUserId({ID})
+```
+
+### Log screen changes ( only needed when not using activityLifecycleListener - for non native integrations)
+#### page_load (generic name) a.k.a logViewAppear (Android specific name) event when a view/screen appears (onResume)
+```kotlin
+rzero.getInstance().sendEventForVisibilityChange(screenName, true)
+```
+#### page_leave (generic name) a.k.a logViewDisappear (Android specific name) event when a view/screen disappears (onPause)
+```kotlin
+rzero.getInstance().sendEventForVisibilityChange(screenName, false)
 ```
 
 ### Implement EditTextWatcher for textfields - note- any field notated as password will receive '*' obfuscated text.
