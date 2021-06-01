@@ -49,17 +49,17 @@ rzero.getInstance().flush()
 
 ### Set User id (* required)
 ```kotlin
-rzero.getInstance().setUserId({ID})
+rzero.getInstance().setUserId("{ID}")
 ```
 
 ### Log screen changes ( only needed when not using activityLifecycleListener - for non native integrations)
 #### page_load (generic name) a.k.a logViewAppear (Android specific name) event when a view/screen appears (onResume)
 ```kotlin
-rzero.getInstance().sendEventForVisibilityChange(screenName, true)
+rzero.getInstance().sendEventForVisibilityChange("{SCREEN_NAME}", true)
 ```
 #### page_leave (generic name) a.k.a logViewDisappear (Android specific name) event when a view/screen disappears (onPause)
 ```kotlin
-rzero.getInstance().sendEventForVisibilityChange(screenName, false)
+rzero.getInstance().sendEventForVisibilityChange("{SCREEN_NAME}", false)
 ```
 
 ### Implement EditTextWatcher for textfields - note- any field notated as password will receive '*' obfuscated text.
